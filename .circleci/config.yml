@@ -10,7 +10,7 @@ jobs:
       - checkout
       - run:
           name: rspec
-          command: bundle exec rspec
+          command: bundle install && bundle exec rspec
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

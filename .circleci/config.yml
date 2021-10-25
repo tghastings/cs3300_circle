@@ -17,6 +17,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: bunble install
+          command: gem install bundler 2.2.11
+      - run:
           name: Which bundler?
           command: bundle -v
       - ruby/bundle-install

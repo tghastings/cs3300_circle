@@ -1,0 +1,119 @@
+<%= csrf_meta_tags %>
+<%= stylesheet_link_tag "bootstrap.css" %>
+<script src="<%= asset_path 'jquery-3.6.0.slim.min.js' %>"></script>
+<script src="<%= asset_path 'bootstrap.js' %>"></script>
+<style>
+p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+h2 {
+    text-align: left;
+    align: left;
+    margin: 0;
+}
+body {
+    background-color: lightgrey;
+}
+</style>
+
+<div class="collapse bg-dark" id="navbarToggleExternalContent">
+<div class="d-none d-md-block container-fluid">
+    <div class="row">
+        <div class="col-2 col-sm-2 col-md-2"></div>
+        <div class="col-4 col-sm-4 col-md-4" style="line-height: 1em;">
+            <h4 class="text-white">About</h4>
+            <p.not() class="text-muted" style="font-size:11px;">I am a major comuter enthusiast. I love everything from programming to security to networking to hardware. I have been using
+            computers since I can remember, and have always been interested in how they work. I pride myself in being diverse in my skillset, I know
+            multiple languages most recently including C/C++, C#, python, and x86 Assembly, but am still always learning. I did some web development as a kid in middle school but
+            it has been a long time. I hope you enjoy my crappy ruby on rails website.</p>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2"></div>
+        <div class="col-4 col-sm-4 col-md-4">
+            <h4 class="text-white">Contact</h4>
+            <ul class="list-unstyled">
+                <li><a href="https://github.com/PwndDepot/" class="text-white">Checkout my Github</a></li>
+                <li class="text-white">Email: travis@brunimail.com</li>
+                <li class="text-white">Discord: PwnDepot#2355</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<a class="navbar-brand" href="/">Trav's Portofolio Site</a>
+
+
+<div class="collapse navbar-collapse" id="navbarsDefault">
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="/" style="font-size:18px;">Home</a>
+    </li>
+        <% if !user_signed_in? %>
+                <li class="nav-item" style="font-size:18px;">
+                    <%= link_to 'Sign In' , new_user_session_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item" style="font-size:18px;">
+                    <%= link_to 'Sign Up' , new_user_registration_path, class: "nav-link" %>
+                </li>
+            <% else %>
+            <li class="nav-item" style="font-size:18px;">
+                <%= link_to 'New Project', new_project_path, class: "nav-link" %>
+            </li>
+        <% end %>
+</ul>
+
+
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="d-flex justify-content-between">
+            <button class="d-none d-md-block navbar-toggler" href="#collapse1" type="button"
+                data-target="#navbarToggleExternalContent" data-toggle="collapse" aria-controls="navbarHeader"
+                aria-expanded="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+    <% if user_signed_in? %>
+    <li class="nav-item navbar-nav" style="font-size:18px;">
+        <%= link_to 'My Account', edit_user_registration_path, class: "nav-link", style: "color:white;" %>
+    </li>
+    <li class="nav-item navbar-nav" style="font-size:18px;">
+        <%= link_to('Sign Out', destroy_user_session_path, class: "nav-link" , method: :delete) %>
+    </li>
+    <% end %>
+</div>
+</nav>
+
+
+<% if flash[:notice] or flash[:alert] %>
+<br>
+<center>
+<p id="notice"><b><%= notice %></b></p>
+<p class="alert"><b><%= alert %></b></p>
+</center>
+<% end %>
+
+<div class="jumbotron" style="background-color:lightgrey;margin-bottom:5%;padding-bottom:0px">
+<div class="container">
+    <h1 class="display-3">Welcome!</h1>
+    <p>Thanks for checking out my site! Here users can post their projects to show off to the world! </p>
+</div>
+</div>
+<br>
+<center><h2>Projects</h2></center>
+<br>
+<br>
+<div class="container">
+<div class="row text-left">
+<% @projects.each do |project| %>
+    <div class="col-md-4" style="border: 1px solid black;">
+        <h2><%= project.name %></h2>
+        <p><%= project.description %></p>
+        <p><%= link_to 'Show', project, class: ["btn", "btn-secondary"], :style => "color: white;" %></p>
+    </div>
+<% end %>
+</div>
+</div>

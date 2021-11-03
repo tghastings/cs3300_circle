@@ -19,8 +19,7 @@ jobs:
       - checkout
       - heroku/install
       - run:
-          command: >
-            bundle install && rake db:migrate
+          command: bundle install && bundle exec rake db:migrate RAILS_ENV=production
       - heroku/deploy-via-git
 
 # Invoke jobs via workflows

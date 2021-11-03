@@ -18,8 +18,6 @@ jobs:
     steps:
       - checkout
       - heroku/install
-      - run:
-          command: gem install bundler:2.2.11 && bundle install && bundle exec rake db:migrate RAILS_ENV=production
       - heroku/deploy-via-git
 
 # Invoke jobs via workflows
